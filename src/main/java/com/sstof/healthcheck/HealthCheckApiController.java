@@ -1,4 +1,4 @@
-package healthcheck;
+package com.sstof.healthcheck;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
