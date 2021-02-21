@@ -1,0 +1,18 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/sstof
+permissions:
+  - object: /home/ec2-user/sstof
+    owner: ec2-user
+  - object: /home/ec2-user/sstof/*/**
+    owner: ec2-user
+hooks:
+  BeforeInstall:
+    - location: scripts/delete-before-artifacts.sh
+  AfterInstall:
+    - location: scripts/change-script-permissions.sh
+  ApplicationStart:
+    - location: scripts/run-application.sh
+      runas: ec2-user
