@@ -23,12 +23,18 @@ public class InsertUserTest extends ApiIntegrationTest {
     private static final String EMAIL = "test@test.com";
     private static final String NAME = "NAME";
     private static final String PASSWORD = "PasswordPasswordPasswordPasswordPasswordPasswordPasswordPassword";
+
+    private UserCreateRequestDto getUserCreateRequestDto(String email, String name, String password) {
+        UserCreateRequestDto requestDto = new UserCreateRequestDto();
+        requestDto.setEmail(email);
+        requestDto.setName(name);
+        requestDto.setPassword(password);
+        return requestDto;
+    }
+
     @Test
     public void insert_responseIsOk() {
-        UserCreateRequestDto requestDto = new UserCreateRequestDto();
-        requestDto.setName(NAME);
-        requestDto.setEmail(EMAIL);
-        requestDto.setPassword(PASSWORD);
+        UserCreateRequestDto requestDto = getUserCreateRequestDto(EMAIL, NAME, PASSWORD);
 
         RequestEntity<UserCreateRequestDto> request = RequestEntity.post(URI.create("/v1/user"))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -47,5 +53,35 @@ public class InsertUserTest extends ApiIntegrationTest {
         assertEquals(responseBody.getName(), NAME);
         assertTrue(responseBody.getCreated_at().isBefore(LocalDateTime.now()));
         assertEquals(responseBody.getRole(), UserRole.USER);
+    }
+
+    @Test
+    public void insert_responseIsBadRequestIfEmailIsMissing() {
+
+    }
+
+    @Test
+    public void insert_responseIsBadRequestIfNameIsMissing() {
+
+    }
+
+    @Test
+    public void insert_responseIsBadRequestIfPasswordIsMissing() {
+
+    }
+
+    @Test
+    public void insert_responseIsBadRequestIfEmailIsMalformed() {
+
+    }
+
+    @Test
+    public void insert_responseIsBadRequestIfPasswordLengthIsNot64() {
+
+    }
+
+    @Test
+    public void insert_responseIsConflictIfEmailAlreadyExists() {
+        
     }
 }
