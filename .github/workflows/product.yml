@@ -39,10 +39,10 @@ jobs:
           DATASOURCE_PASSWORD: ${{ secrets.DATASOURCE_PASSWORD }}
 
       - name: compress files for deploy
-        run: zip -r codehelper-backend.zip build/libs appspec.yml scripts
+        run: zip -r sstof-backend.zip build/libs appspec.yml scripts
 
       - name: upload to s3
-        run: aws s3 cp codehelper-backend.zip s3://${{ secrets.AWS_S3_BUCKET }}
+        run: aws s3 cp sstof-backend.zip s3://${{ secrets.AWS_S3_BUCKET }}
 
   deploy:
     needs: build
@@ -58,4 +58,4 @@ jobs:
           aws-region: ${{ secrets.AWS_S3_REGION }}
 
       - name: deploy
-        run: aws deploy create-deployment --application-name SSTOF --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name SSTOFCodeDeployGroup --s3-location bucket=${{ secrets.AWS_S3_BUCKET }},bundleType=zip,key=codehelper-backend.zip --region ${{ secrets.AWS_S3_REGION }} --file-exists-behavior OVERWRITE
+        run: aws deploy create-deployment --application-name SSTOF --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name SSTOFCodeDeployGroup --s3-location bucket=${{ secrets.AWS_S3_BUCKET }},bundleType=zip,key=sstof-backend.zip --region ${{ secrets.AWS_S3_REGION }} --file-exists-behavior OVERWRITE
