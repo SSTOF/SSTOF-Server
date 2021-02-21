@@ -20,7 +20,7 @@ public class UserInfoResponseDto {
         this.userId = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
-        this.created_at = user.getCreated_at();
+        this.created_at = user.getCreatedAt();
         this.role = user.getRole();
     }
 }

@@ -1,18 +1,17 @@
 package com.sstof.users.domain;
 
+import com.sstof.common.domain.CreatedAtEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
 @Getter
-public class User {
+public class User extends CreatedAtEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +26,6 @@ public class User {
 
     @Column(nullable = false, length = 100, unique = true)
     private String email;
-
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime created_at;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
