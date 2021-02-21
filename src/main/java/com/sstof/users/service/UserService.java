@@ -4,6 +4,7 @@ import com.sstof.users.domain.User;
 import com.sstof.users.domain.UserRepository;
 import com.sstof.users.dto.UserCreateRequestDto;
 import com.sstof.users.dto.UserInfoResponseDto;
+import com.sstof.users.exception.UserEmailConflictException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
