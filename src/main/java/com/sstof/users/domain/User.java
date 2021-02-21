@@ -1,4 +1,4 @@
-package com.sstof.users;
+package com.sstof.users.domain;
 
 import lombok.Builder;
 import lombok.NoArgsConstructor;
