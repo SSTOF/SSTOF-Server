@@ -82,6 +82,6 @@ public class InsertUserTest extends ApiIntegrationTest {
 
     @Test
     public void insert_responseIsConflictIfEmailAlreadyExists() {
-        
+
     }
 }
