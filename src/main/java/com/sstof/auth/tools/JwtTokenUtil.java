@@ -17,7 +17,7 @@ public class JwtTokenUtil {
 
     private static String secretKey;
 
-    @Value("${jwt.secret")
+    @Value("${jwt.secret}")
     private void setSecretKey(String value) {
         secretKey = value;
     }
