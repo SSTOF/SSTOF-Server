@@ -5,16 +5,23 @@ import com.sstof.users.domain.User;
 import com.sstof.users.domain.UserRole;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+@Component
 public class JwtTokenUtil {
 
-    @Value("${jwt.secret}")
-    private static String SECRET_KEY;
+    private static String secretKey;
+
+    @Value("${jwt.secret")
+    private void setSecretKey(String value) {
+        secretKey = value;
+    }
+
     private static final int REFRESH_TOKEN_EXPIRATION = 86400000 * 7;
     private static final int ACCESS_TOKEN_EXPIRATION = 86400000;
 
@@ -49,7 +56,7 @@ public class JwtTokenUtil {
 
     private static Claims extractAllClaims(String token) {
         try {
-            return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+            return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         } catch (ExpiredJwtException expiredJwtException) {
             throw new AuthenticateException("Jwt 토큰이 만료되었습니다.");
         } catch (UnsupportedJwtException unsupportedJwtException) {
@@ -92,7 +99,7 @@ public class JwtTokenUtil {
         return Jwts.builder().setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTimeInMs))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 }

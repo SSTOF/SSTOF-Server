@@ -20,10 +20,6 @@ import static org.junit.Assert.assertTrue;
 
 public class UserInsertTest extends ApiIntegrationTest {
 
-    private static final String EMAIL = "test@test.com";
-    private static final String NAME = "NAME";
-    private static final String PASSWORD = "PasswordPasswordPasswordPasswordPasswordPasswordPasswordPassword";
-
     private UserCreateRequestDto getUserCreateRequestDto(String email, String name, String password) {
         UserCreateRequestDto requestDto = new UserCreateRequestDto();
         requestDto.setEmail(email);

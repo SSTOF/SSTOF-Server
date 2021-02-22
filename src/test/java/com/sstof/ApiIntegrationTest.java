@@ -20,6 +20,10 @@ public abstract class ApiIntegrationTest {
     @Autowired
     protected TestRestTemplate restTemplate;
 
+    protected static final String EMAIL = "test@test.com";
+    protected static final String NAME = "NAME";
+    protected static final String PASSWORD = "PasswordPasswordPasswordPasswordPasswordPasswordPasswordPassword";
+
     @Before
     public void setUp() {
         userRepository.deleteAll();
