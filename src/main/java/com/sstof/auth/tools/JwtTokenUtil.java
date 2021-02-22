@@ -4,17 +4,13 @@ import com.sstof.auth.exception.AuthenticateException;
 import com.sstof.users.domain.User;
 import com.sstof.users.domain.UserRole;
 import io.jsonwebtoken.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@RequiredArgsConstructor
-@Component
 public class JwtTokenUtil {
 
     @Value("${jwt.secret}")
