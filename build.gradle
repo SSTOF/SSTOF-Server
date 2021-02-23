@@ -34,6 +34,7 @@ dependencies {
     implementation('mysql:mysql-connector-java')
     implementation('org.jetbrains:annotations:16.0.2')
     implementation('org.apache.tomcat.embed:tomcat-embed-jasper')
+    implementation('io.jsonwebtoken:jjwt:0.9.1')
     implementation platform('software.amazon.awssdk:bom:2.15.0')
     testImplementation('com.h2database:h2')
     testImplementation('org.springframework.boot:spring-boot-starter-test')

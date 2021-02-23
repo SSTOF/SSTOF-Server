@@ -2,6 +2,8 @@ package com.sstof.users.controller;
 
 import com.sstof.users.dto.UserCreateRequestDto;
 import com.sstof.users.dto.UserInfoResponseDto;
+import com.sstof.users.dto.UserLoginRequestDto;
+import com.sstof.users.dto.UserLoginResponseDto;
 import com.sstof.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,5 +24,11 @@ public class UserApiController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserInfoResponseDto save(@Valid @RequestBody UserCreateRequestDto dto) {
         return userService.save(dto);
+    }
+
+    @PostMapping("/v1/user/sign-in")
+    @ResponseStatus(HttpStatus.OK)
+    public UserLoginResponseDto signIn(@Valid @RequestBody UserLoginRequestDto dto) {
+        return userService.signIn(dto);
     }
 }
