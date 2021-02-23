@@ -15,12 +15,8 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil {
 
-    private String secretKey;
-
     @Value("${jwt.secret}")
-    private void setSecretKey(String value) {
-        secretKey = value;
-    }
+    private String secretKey;
 
     private final int REFRESH_TOKEN_EXPIRATION = 86400000 * 7;
     private final int ACCESS_TOKEN_EXPIRATION = 86400000;

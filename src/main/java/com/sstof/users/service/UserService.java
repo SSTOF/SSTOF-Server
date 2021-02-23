@@ -21,6 +21,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @Transactional
     public UserInfoResponseDto save(UserCreateRequestDto dto) {
@@ -46,8 +47,8 @@ public class UserService {
                     .email(user.getEmail())
                     .created_at(user.getCreatedAt())
                     .role(user.getRole())
-                    .accessToken(JwtTokenUtil.generateAccessToken(user))
-                    .refreshToken(JwtTokenUtil.generateRefreshToken(user.getId(), user.getRole()))
+                    .accessToken(jwtTokenUtil.generateAccessToken(user))
+                    .refreshToken(jwtTokenUtil.generateRefreshToken(user.getId(), user.getRole()))
                     .build();
         } else throw new UserLoginFailedException();
     }
