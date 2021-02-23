@@ -15,46 +15,46 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil {
 
-    private static String secretKey;
+    private String secretKey;
 
     @Value("${jwt.secret}")
     private void setSecretKey(String value) {
         secretKey = value;
     }
 
-    private static final int REFRESH_TOKEN_EXPIRATION = 86400000 * 7;
-    private static final int ACCESS_TOKEN_EXPIRATION = 86400000;
+    private final int REFRESH_TOKEN_EXPIRATION = 86400000 * 7;
+    private final int ACCESS_TOKEN_EXPIRATION = 86400000;
 
-    public static UserRole extractUserRole(String token) {
-        return extractClaim(token, JwtTokenUtil::getUserRole);
+    public UserRole extractUserRole(String token) {
+        return extractClaim(token, this::getUserRole);
     }
 
-    private static UserRole getUserRole(Claims claim) {
+    private UserRole getUserRole(Claims claim) {
         String roleString = claim.get("role", String.class);
         if (roleString == null) throw new AuthenticateException("Jwt Claim에 role이 없습니다.");
         return UserRole.valueOf(roleString);
     }
 
-    public static int extractUserId(String token) {
-        return extractClaim(token, JwtTokenUtil::getUserId);
+    public int extractUserId(String token) {
+        return extractClaim(token, this::getUserId);
     }
 
-    private static int getUserId(Claims claim) {
+    private int getUserId(Claims claim) {
         Integer userId = claim.get("userId", Integer.class);
         if (userId == null) throw new AuthenticateException("Jwt Claim에 userId가 없습니다.");
         return userId;
     }
 
-    private static Date extractExpiration(String token) {
+    private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public static <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
+    public <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
         Claims claims = extractAllClaims(token);
         return claimResolver.apply(claims);
     }
 
-    private static Claims extractAllClaims(String token) {
+    private Claims extractAllClaims(String token) {
         try {
             return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         } catch (ExpiredJwtException expiredJwtException) {
@@ -70,32 +70,32 @@ public class JwtTokenUtil {
         }
     }
 
-    public static boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
-    public static String generateAccessToken(User user) {
+    public String generateAccessToken(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());
         claims.put("role", user.getRole());
         return createToken(claims, ACCESS_TOKEN_EXPIRATION);
     }
 
-    public static String generateAccessToken(Integer userId, UserRole role) {
+    public String generateAccessToken(Integer userId, UserRole role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
         claims.put("role", role);
         return createToken(claims, ACCESS_TOKEN_EXPIRATION);
     }
 
-    public static String generateRefreshToken(Integer userId, UserRole role) {
+    public String generateRefreshToken(Integer userId, UserRole role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
         claims.put("role", role);
         return createToken(claims, REFRESH_TOKEN_EXPIRATION);
     }
 
-    private static String createToken(Map<String, Object> claims, int expirationTimeInMs) {
+    private String createToken(Map<String, Object> claims, int expirationTimeInMs) {
         return Jwts.builder().setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTimeInMs))
