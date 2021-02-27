@@ -1,5 +1,6 @@
 package com.sstof.config.auth;
 
+import com.sstof.users.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -26,6 +27,13 @@ public class OAuthAttributes {
                 .email((String) attributes.get("email"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
+
+    public User toEntity() {
+        return User.builder()
+                .name(name)
+                .email(email)
                 .build();
     }
 }
