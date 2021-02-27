@@ -21,7 +21,7 @@ public class User extends CreatedAtEntity {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, length = 64)
+    @Column(length = 64)
     private String password;
 
     @Column(nullable = false, length = 100, unique = true)

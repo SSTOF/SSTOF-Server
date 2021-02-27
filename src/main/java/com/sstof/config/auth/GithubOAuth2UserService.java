@@ -26,5 +26,7 @@ public class GithubOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 .getUserNameAttributeName();
         System.out.println(userNameAttributeName);
 
+        OAuthAttributes attributes = OAuthAttributes
+
     }
 }

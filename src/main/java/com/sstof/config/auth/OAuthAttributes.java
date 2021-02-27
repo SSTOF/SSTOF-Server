@@ -19,4 +19,13 @@ public class OAuthAttributes {
         this.name = name;
         this.email = email;
     }
+
+    public static OAuthAttributes ofGithub(String userNameAttributeName, Map<String, Object> attributes) {
+        return OAuthAttributes.builder()
+                .name((String) attributes.get("name"))
+                .email((String) attributes.get("email"))
+                .attributes(attributes)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
 }
