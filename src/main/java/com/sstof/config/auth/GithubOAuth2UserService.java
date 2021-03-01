@@ -46,6 +46,7 @@ public class GithubOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     @Transactional
     protected User saveUser(OAuthAttributes attributes) {
+        System.out.println("SAVE USER!");
         if(userRepository.findByEmail(attributes.getEmail()).isPresent()) {
             throw new UserEmailConflictException();
         } else {
