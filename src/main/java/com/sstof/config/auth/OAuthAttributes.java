@@ -27,7 +27,7 @@ public class OAuthAttributes {
         System.out.println((String) attributes.get("email"));
         attributes.forEach((object, index) -> System.out.println(object + ": " + attributes.get(object)));
         if(attributes.get("email") == null) {
-            throw new GithubEmailNotPublicException();
+            throw new GithubEmailNotPublicException("깃허브 링크에 Public Email이 없습니다. 설정 후 다시 시도해 주세요.");
         }
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
