@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ErrorResponseDto {
-    private Date timestamp;
+    private LocalDateTime timestamp;
     private int status;
     private String error;
     private String message;
