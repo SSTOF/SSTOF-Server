@@ -5,7 +5,6 @@ import com.sstof.users.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.Iterator;
 import java.util.Map;
 
 @Getter
