@@ -1,9 +1,11 @@
 package com.sstof.config.auth;
 
+import com.sstof.auth.exception.GithubEmailNotPublicException;
 import com.sstof.users.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.Iterator;
 import java.util.Map;
 
 @Getter
@@ -22,6 +24,12 @@ public class OAuthAttributes {
     }
 
     public static OAuthAttributes ofGithub(String userNameAttributeName, Map<String, Object> attributes) {
+        System.out.println((String) attributes.get("name"));
+        System.out.println((String) attributes.get("email"));
+        attributes.forEach((object, index) -> System.out.println(object + ": " + attributes.get(object)));
+        if(attributes.get("email") == null) {
+            throw new GithubEmailNotPublicException();
+        }
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
