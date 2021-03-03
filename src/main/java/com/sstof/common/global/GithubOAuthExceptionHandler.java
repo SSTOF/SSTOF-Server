@@ -1,7 +1,7 @@
 package com.sstof.common.global;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sstof.auth.exception.GithubEmailNotPublicException;
+import com.sstof.auth.exception.GithubException;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -21,13 +21,14 @@ public class GithubOAuthExceptionHandler implements AuthenticationFailureHandler
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        if(exception instanceof GithubEmailNotPublicException) {
-            GithubEmailNotPublicException githubEmailNotPublicException = (GithubEmailNotPublicException) exception;
-            response.setStatus(githubEmailNotPublicException.getSTATUS());
+        System.out.println("HANDLE!");
+        if(exception instanceof GithubException) {
+            GithubException githubException =  (GithubException) exception;
+            response.setStatus(githubException.getStatus());
             Map<String, Object> data = new HashMap<>();
             data.put("timestamp", LocalDateTime.now());
-            data.put("message", githubEmailNotPublicException.getMessage());
-            data.put("exception", githubEmailNotPublicException.getMessage());
+            data.put("message", githubException.getMessage());
+            data.put("exception", githubException.getMessage());
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF8");
