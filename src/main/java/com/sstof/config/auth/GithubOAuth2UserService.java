@@ -1,5 +1,6 @@
 package com.sstof.config.auth;
 
+import com.sstof.auth.exception.GithubEmailInUseException;
 import com.sstof.users.domain.User;
 import com.sstof.users.domain.UserRepository;
 import com.sstof.users.exception.UserEmailConflictException;
@@ -27,11 +28,9 @@ public class GithubOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        System.out.println(registrationId);
         String userNameAttributeName = userRequest.getClientRegistration()
                 .getProviderDetails().getUserInfoEndpoint()
                 .getUserNameAttributeName();
-        System.out.println(userNameAttributeName);
 
         OAuthAttributes attributes = OAuthAttributes.ofGithub(userNameAttributeName, oAuth2User.getAttributes());
 
@@ -46,9 +45,8 @@ public class GithubOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     @Transactional
     protected User saveUser(OAuthAttributes attributes) {
-        System.out.println("SAVE USER!");
         if(userRepository.findByEmail(attributes.getEmail()).isPresent()) {
-            throw new UserEmailConflictException();
+            throw new GithubEmailInUseException("This email is already in use.");
         } else {
             User user = attributes.toEntity();
             return userRepository.save(user);
