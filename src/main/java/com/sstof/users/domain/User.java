@@ -32,10 +32,10 @@ public class User extends CreatedAtEntity {
     private UserRole role;
 
     @Builder
-    public User(String name, String password, String email) {
+    public User(String name, String password, String email, UserRole role) {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.role = UserRole.USER;
+        this.role = role;
     }
 }
