@@ -21,7 +21,8 @@ public class GithubOAuthExceptionHandler implements AuthenticationFailureHandler
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF8");
-            response.sendRedirect("http://localhost:3000/signup?error_code=" + githubException.getStatus());
+            // TODO : 아래의 sendRedirect location 값 변경(master branch merge 시)
+            response.sendRedirect("http://http://dev.ssutackoverflow.com.s3-website.ap-northeast-2.amazonaws.com/signup?error_code=" + githubException.getStatus());
         }
     }
 }
